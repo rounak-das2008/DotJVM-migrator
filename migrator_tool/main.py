@@ -8,9 +8,19 @@ from .scanner import ProjectScanner
 from .planner import MigrationPlanner
 from .translator import CodeTranslator
 from .scaffolder import ProjectScaffolder
+from .fixer import FixerAgent
 
 app = typer.Typer()
 console = Console()
+
+@app.command()
+def fix(project_dir: str, project_id: str = None, retries: int = 3):
+    """
+    Iteratively attempts to fix compilation errors in a Maven project.
+    """
+    llm = LLMClient(project_id=project_id)
+    agent = FixerAgent(project_dir, llm)
+    agent.auto_heal(max_retries=retries)
 
 @app.command()
 def analyze(input_dir: str, project_id: str = None):

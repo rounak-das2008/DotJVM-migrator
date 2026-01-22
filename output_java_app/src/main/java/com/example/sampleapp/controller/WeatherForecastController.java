@@ -28,13 +28,8 @@ public class WeatherForecastController {
     }
 
     @Data
+    @AllArgsConstructor
     public static class WeatherForecast {
-        public WeatherForecast(LocalDate date, int temperatureC, String summary) {
-            this.date = date;
-            this.temperatureC = temperatureC;
-            this.summary = summary;
-        }
-
         private LocalDate date;
         private int temperatureC;
         private String summary;
